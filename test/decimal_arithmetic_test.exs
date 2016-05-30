@@ -4,12 +4,6 @@ defmodule DecimalArithmeticTest do
   alias Decimal, as: D
   doctest DecimalArithmetic
 
-  test "casting integers, floats and strings" do
-    assert dec(5) == D.new(5)
-    assert dec("5.43") == D.new(5.43)
-    assert dec(5.43) == D.new(5.43)
-  end
-
   test "adding" do
     assert 1 + 3 == D.new(4)
   end
@@ -54,11 +48,5 @@ defmodule DecimalArithmeticTest do
   test "<=" do
     assert 3.0009 <= 3.001
     assert 3.001 <= 3.001
-  end
-
-  test "using variables" do
-    assert (dec 30) == D.new(30)
-    assert (dec "40") == D.new("40")
-    assert (dec 2.0) == D.new(2.0)
   end
 end

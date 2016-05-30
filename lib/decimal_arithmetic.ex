@@ -5,9 +5,9 @@ defmodule DecimalArithmetic do
   ## Examples
       iex> use DecimalArithmetic
       nil
-      iex> a = dec 98.01
+      iex> a = ~m/98.01/
       #Decimal<98.01>
-      iex> b = dec "10.01"
+      iex> b = ~m/10.01/
       #Decimal<10.01>
       iex> c = a * b
       Decimal.mult(a, b)
@@ -16,7 +16,7 @@ defmodule DecimalArithmetic do
       iex> (a + b * c / d) * 3.14
       Decimal.mult(Decimal.add(a, (Decimal.div(Decimal.mult(b, c), d))), Decimal.new(3.14))
 
-      iex> net_price = dec 34.78
+      iex> net_price = ~m/34.78/
       #Decimal<34.78>
       iex> vat_rate = 23
       23
@@ -147,20 +147,18 @@ defmodule DecimalArithmetic do
   end
 
   @doc """
-  Casts decimable to Decimal.t.
+  Casts string literal to Decimal.t.
 
   ## Examples
-      iex> dec 89.01
+      iex> ~m/89.01/
       #Decimal<89.01>
-      iex> dec "20.99"
-      #Decimal<20.99>
-      iex> dec 45
-      #Decimal<45>
-      iex> dec Decimal.new("53.39")
-      #Decimal<53.39>
   """
+  def sigil_m(string, []) do
+    Decimal.new(string)
+  end
+
   @spec dec(decimable) :: Decimal.t
-  def dec(a) do
+  defp dec(a) do
     if Decimal.decimal?(a), do: a, else: Decimal.new(a)
   end
 end
