@@ -36,7 +36,7 @@ defmodule DecimalArithmetic do
   end
 
   @doc """
-  Adds two decimables.
+  Adds two decimables or delegate addition to Kernel module.
 
   ## Examples
       iex> ~m(1) + 3.1415
@@ -64,7 +64,7 @@ defmodule DecimalArithmetic do
 
 
   @doc """
-  Subtracts two decimables.
+  Subtracts two decimables or delegates subtraction to Kernel module.
 
   ## Examples
       iex> 3.19 - ~m(5.45)
@@ -91,7 +91,7 @@ defmodule DecimalArithmetic do
   end
 
   @doc """
-  Multiplies decimables.
+  Multiplies decimables or delegates multiplication to Kernel module.
 
   ## Examples
       iex> 7 * ~m(2.33)
@@ -116,7 +116,7 @@ defmodule DecimalArithmetic do
   end
 
   @doc """
-  Divides two decimables.
+  Divides two decimables or delegates division to Kernel module.
 
   ## Examples
       iex> ~m(3) / 4
@@ -143,7 +143,7 @@ defmodule DecimalArithmetic do
   end
 
   @doc """
-  Returns true if two decimable are equal.
+  Returns true if two decimable are equal or delegates equality to Kernel module.
 
   ## Examples
       iex> ~m(3.15) == 3.15
@@ -186,7 +186,7 @@ defmodule DecimalArithmetic do
   end
 
   @doc """
-  Compares two decimables.
+  Compares two decimables or delegates comparison to Kernel module.
   """
   @spec decimable > decimable :: boolean
   def a > b do
@@ -215,7 +215,7 @@ defmodule DecimalArithmetic do
   end
 
   @doc """
-  Compares two decimables.
+  Compares two decimables or delegates comparison to Kernel module.
   """
   @spec decimable < decimable :: boolean
   def a < b do
