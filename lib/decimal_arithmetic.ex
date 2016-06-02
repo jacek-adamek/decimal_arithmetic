@@ -188,6 +188,14 @@ defmodule DecimalArithmetic do
 
   @doc """
   Compares two decimables or delegates comparison to Kernel module.
+
+  ## Examples
+      iex> 3 > ~m(2)
+      true
+      iex> ~m(3) > 5
+      false
+      iex> ~m(2.21) > ~m(2.20)
+      true
   """
   @spec decimable > decimable :: boolean
   def a > b do
@@ -209,6 +217,14 @@ defmodule DecimalArithmetic do
 
   @doc """
   Compares two decimables.
+
+  ## Examples
+      iex> 3 >= ~m(2)
+      true
+      iex> ~m(3) >= 3
+      true
+      iex> ~m(2.20) >= ~m(2.21)
+      false
   """
   @spec decimable >= decimable :: boolean
   def a >= b do
@@ -217,6 +233,14 @@ defmodule DecimalArithmetic do
 
   @doc """
   Compares two decimables or delegates comparison to Kernel module.
+
+   ## Examples
+      iex> 3 < ~m(2)
+      false
+      iex> ~m(3) < 5
+      true
+      iex> ~m(2.21) < ~m(2.20)
+      false
   """
   @spec decimable < decimable :: boolean
   def a < b do
@@ -238,6 +262,14 @@ defmodule DecimalArithmetic do
 
   @doc """
   Compares two decimables.
+
+  ## Examples
+      iex> 3 <= ~m(2)
+      false
+      iex> ~m(3) <= 3
+      true
+      iex> ~m(2.20) <= ~m(2.21)
+      true
   """
   @spec decimable <= decimable :: boolean
   def a <= b do
