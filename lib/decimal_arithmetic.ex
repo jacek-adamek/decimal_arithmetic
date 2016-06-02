@@ -155,19 +155,19 @@ defmodule DecimalArithmetic do
   """
   @spec decimable == decimable :: boolean
   def a == b do
-    do_eqaul(a, b)
+    do_equal(a, b)
   end
 
-  defp do_eqaul(%Decimal{} = a, %Decimal{} = b) do
+  defp do_equal(%Decimal{} = a, %Decimal{} = b) do
     D.equal? a, b
   end
-  defp do_eqaul(%Decimal{} = a, b) when is_number(b) do
+  defp do_equal(%Decimal{} = a, b) when is_number(b) do
     D.equal? a, D.new(b)
   end
-  defp do_eqaul(a, %Decimal{} = b) when is_number(a) do
+  defp do_equal(a, %Decimal{} = b) when is_number(a) do
     D.equal? D.new(a), b
   end
-  defp do_eqaul(a, b) do
+  defp do_equal(a, b) do
     Kernel.==(a, b)
   end
 
