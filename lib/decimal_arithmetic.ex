@@ -3,26 +3,22 @@ defmodule DecimalArithmetic do
   Module replaces embedeed arithmetic with decimal one.
 
   ## Examples
-      iex> use DecimalArithmetic
-      nil
       iex> a = ~m(98.01)
       #Decimal<98.01>
       iex> b = ~m(10.01)
       #Decimal<10.01>
       iex> c = a * b
-      Decimal.mult(a, b)
+      #Decimal<981.0801>
       iex> d = c / 77
-      Decimal.div(c, Decimal.new(77))
+      #Decimal<12.7413>
       iex> (a + b * c / d) * 3.14
-      Decimal.mult(Decimal.add(a, (Decimal.div(Decimal.mult(b, c), d))), Decimal.new(3.14))
-
+      #Decimal<2727.96920>
       iex> net_price = ~m(34.78)
       #Decimal<34.78>
       iex> vat_rate = 23
       23
       iex> net_price * (1 + vat_rate / 100) |> Decimal.round(2)
       #Decimal<42.78>
-
   """
 
   alias Decimal, as: D
@@ -73,6 +69,8 @@ defmodule DecimalArithmetic do
   ## Examples
       iex> 3.19 - ~m(5.45)
       #Decimal<-2.26>
+      iex> 3.20 - 5.45
+      -2.25
   """
   @spec decimable - decimable :: Decimal.t
   def a - b do
@@ -123,6 +121,8 @@ defmodule DecimalArithmetic do
   ## Examples
       iex> ~m(3) / 4
       #Decimal<0.75>
+      iex> 3 / 4
+      0.75
   """
   @spec decimable / decimable :: Decimal.t
   def a / b do
