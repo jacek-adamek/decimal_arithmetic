@@ -25,6 +25,8 @@ defmodule DecimalArithmetic do
 
   """
 
+  alias Decimal, as: D
+
   @type decimable :: number | Decimal.t
 
   @doc false
@@ -52,13 +54,13 @@ defmodule DecimalArithmetic do
   end
 
   defp do_add(%Decimal{} = a, %Decimal{} = b) do
-    Decimal.add a, b
+    D.add a, b
   end
   defp do_add(%Decimal{} = a, b) when is_number(b) do
-    Decimal.add a, dec(b)
+    D.add a, D.new(b)
   end
   defp do_add(a, %Decimal{} = b) when is_number(a) do
-    Decimal.add dec(a), b
+    D.add D.new(a), b
   end
   defp do_add(a, b) do
     Kernel.+(a, b)
@@ -78,13 +80,13 @@ defmodule DecimalArithmetic do
   end
 
   defp do_sub(%Decimal{} = a, %Decimal{} = b) do
-    Decimal.sub a, b
+    D.sub a, b
   end
   defp do_sub(%Decimal{} = a, b) when is_number(b) do
-    Decimal.sub a, dec(b)
+    D.sub a, D.new(b)
   end
   defp do_sub(a, %Decimal{} = b) when is_number(a) do
-    Decimal.sub dec(a), b
+    D.sub D.new(a), b
   end
   defp do_sub(a, b) do
     Kernel.-(a, b)
@@ -103,13 +105,13 @@ defmodule DecimalArithmetic do
   end
 
   defp do_mult(%Decimal{} = a, %Decimal{} = b) do
-    Decimal.mult a, b
+    D.mult a, b
   end
   defp do_mult(%Decimal{} = a, b) when is_number(b) do
-    Decimal.mult a, dec(b)
+    D.mult a, D.new(b)
   end
   defp do_mult(a, %Decimal{} = b) when is_number(a) do
-    Decimal.mult dec(a), b
+    D.mult D.new(a), b
   end
   defp do_mult(a, b) do
     Kernel.*(a, b)
@@ -128,13 +130,13 @@ defmodule DecimalArithmetic do
   end
 
   defp do_div(%Decimal{} = a, %Decimal{} = b) do
-    Decimal.div a, b
+    D.div a, b
   end
   defp do_div(%Decimal{} = a, b) when is_number(b) do
-    Decimal.div a, dec(b)
+    D.div a, D.new(b)
   end
   defp do_div(a, %Decimal{} = b) when is_number(a) do
-    Decimal.div dec(a), b
+    D.div D.new(a), b
   end
   defp do_div(a, b) do
     Kernel./(a, b)
@@ -157,13 +159,13 @@ defmodule DecimalArithmetic do
   end
 
   defp do_eqaul(%Decimal{} = a, %Decimal{} = b) do
-    Decimal.equal? a, b
+    D.equal? a, b
   end
   defp do_eqaul(%Decimal{} = a, b) when is_number(b) do
-    Decimal.equal? a, dec(b)
+    D.equal? a, D.new(b)
   end
   defp do_eqaul(a, %Decimal{} = b) when is_number(a) do
-    Decimal.equal? dec(a), b
+    D.equal? D.new(a), b
   end
   defp do_eqaul(a, b) do
     Kernel.==(a, b)
@@ -192,13 +194,13 @@ defmodule DecimalArithmetic do
   end
 
   defp do_greater(%Decimal{} = a, %Decimal{} = b) do
-    Kernel.==(Decimal.compare(a, b), dec(1))
+    Kernel.==(D.compare(a, b), D.new(1))
   end
   defp do_greater(%Decimal{} = a, b) when is_number(b) do
-    Kernel.==(Decimal.compare(a, dec(b)), dec(1))
+    Kernel.==(D.compare(a, D.new(b)), D.new(1))
   end
   defp do_greater(a, %Decimal{} = b) when is_number(a) do
-    Kernel.==(Decimal.compare(dec(a), b), dec(1))
+    Kernel.==(D.compare(D.new(a), b), D.new(1))
   end
   defp do_greater(a, b) do
     Kernel.>(a, b)
@@ -221,13 +223,13 @@ defmodule DecimalArithmetic do
   end
 
   defp do_less(%Decimal{} = a, %Decimal{} = b) do
-    Kernel.==(Decimal.compare(a, b), dec(-1))
+    Kernel.==(D.compare(a, b), D.new(-1))
   end
   defp do_less(%Decimal{} = a, b) when is_number(b) do
-    Kernel.==(Decimal.compare(a, dec(b)), dec(-1))
+    Kernel.==(D.compare(a, D.new(b)), D.new(-1))
   end
   defp do_less(a, %Decimal{} = b) when is_number(a) do
-    Kernel.==(Decimal.compare(dec(a), b), dec(-1))
+    Kernel.==(D.compare(D.new(a), b), D.new(-1))
   end
   defp do_less(a, b) do
     Kernel.<(a, b)
@@ -249,11 +251,6 @@ defmodule DecimalArithmetic do
       #Decimal<89.01>
   """
   def sigil_m(string, []) do
-    Decimal.new(string)
-  end
-
-  @spec dec(decimable) :: Decimal.t
-  defp dec(a) do
-    if Decimal.decimal?(a), do: a, else: Decimal.new(a)
+    D.new(string)
   end
 end
