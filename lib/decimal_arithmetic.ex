@@ -282,6 +282,10 @@ defmodule DecimalArithmetic do
   ## Examples
       iex> ~m[89.01]
       #Decimal<89.01>
+      iex> ~m{34.34}
+      #Decimal<34.34>
+      iex> ~m(1)
+      #Decimal<1>
   """
   def sigil_m(string, []) do
     D.new(string)
