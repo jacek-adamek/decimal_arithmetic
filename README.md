@@ -62,7 +62,7 @@ Thanks to above you get access to extended decimal arithmetic.
 
 ### Promotion to Decimal
 
-When any expresion contains at least one operand of type [Decimal](https://github.com/ericmj/decimal) the rest of operands are promoted to Decimal too. E.g.:
+When any expresion contains at least one operand of [Decimal](https://github.com/ericmj/decimal) type the rest of operands are promoted to Decimal too. E.g.:
 
         iex> a = 23
         23
