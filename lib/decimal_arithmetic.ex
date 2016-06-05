@@ -1,6 +1,6 @@
 defmodule DecimalArithmetic do
   @moduledoc """
-  Module extends embedeed arithmetic with decimal one. If at least one operand of operation
+  Module extends embedded arithmetic with decimal one. If at least one operand of operation
   is of type Decimal.t the second one is promoted to Decimal struct too.
 
   ## Examples
