@@ -36,7 +36,7 @@ This library was created so that you could use [Decimal](https://github.com/eric
   Add decimal_arithmetic to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:decimal_arithmetic, "~> 0.1.0"}]
+          [{:decimal_arithmetic, "~> 0.1.1"}]
         en
 
 ## Usage
