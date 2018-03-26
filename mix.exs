@@ -3,13 +3,13 @@ defmodule DecimalArithmetic.Mixfile do
 
   def project do
     [app: :decimal_arithmetic,
-     version: "0.1.1",
+     version: "0.1.2",
      elixir: "~> 1.1",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     package: package,
+     package: package(),
      description: "Extended arithmetic for Decimal library.",
-     deps: deps]
+     deps: deps()]
   end
 
   def application do
@@ -18,11 +18,11 @@ defmodule DecimalArithmetic.Mixfile do
 
   defp deps do
     [
-      {:decimal, "~> 1.1"},
-      {:ex_doc, "~> 0.11.0", only: :dev},
-      {:earmark, "~> 0.1", only: :dev},
-      {:mix_test_watch, "~> 0.2", only: :dev},
-      {:dialyxir, "~> 0.3", only: :dev}
+      {:decimal, "~> 1.5"},
+      {:ex_doc, "~> 0.18", only: :dev},
+      {:earmark, "~> 1.2", only: :dev},
+      {:mix_test_watch, "~> 0.5", only: :dev},
+      {:dialyxir, "~> 0.5", only: :dev}
     ]
   end
 
