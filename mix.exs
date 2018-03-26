@@ -28,6 +28,7 @@ defmodule DecimalArithmetic.Mixfile do
 
   defp package do
     [ contributors: ["Jacek Adamek"],
+      maintainers: ["Jacek Adamek"],
       licenses: ["MIT"],
       links: %{ "Github" => "https://github.com/jacek-adamek/decimal_arithmetic" } ]
   end
