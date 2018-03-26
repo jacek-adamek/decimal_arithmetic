@@ -13,7 +13,7 @@ defmodule DecimalArithmetic do
       iex> d = c / 77
       #Decimal<12.7413>
       iex> (a + b * c / d) * 3.14
-      #Decimal<2727.96920>
+      #Decimal<2727.9692>
       iex> net_price = ~m(34.78)
       #Decimal<34.78>
       iex> vat_rate = 23
