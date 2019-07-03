@@ -54,10 +54,10 @@ defmodule DecimalArithmetic do
     D.add a, b
   end
   defp do_add(%Decimal{} = a, b) when is_number(b) do
-    D.add a, D.new(b)
+    D.add a, to_decimal(b)
   end
   defp do_add(a, %Decimal{} = b) when is_number(a) do
-    D.add D.new(a), b
+    D.add to_decimal(a), b
   end
   defp do_add(a, b) do
     Kernel.+(a, b)
@@ -82,10 +82,10 @@ defmodule DecimalArithmetic do
     D.sub a, b
   end
   defp do_sub(%Decimal{} = a, b) when is_number(b) do
-    D.sub a, D.new(b)
+    D.sub a, to_decimal(b)
   end
   defp do_sub(a, %Decimal{} = b) when is_number(a) do
-    D.sub D.new(a), b
+    D.sub to_decimal(a), b
   end
   defp do_sub(a, b) do
     Kernel.-(a, b)
@@ -107,10 +107,10 @@ defmodule DecimalArithmetic do
     D.mult a, b
   end
   defp do_mult(%Decimal{} = a, b) when is_number(b) do
-    D.mult a, D.new(b)
+    D.mult a, to_decimal(b)
   end
   defp do_mult(a, %Decimal{} = b) when is_number(a) do
-    D.mult D.new(a), b
+    D.mult to_decimal(a), b
   end
   defp do_mult(a, b) do
     Kernel.*(a, b)
@@ -134,10 +134,10 @@ defmodule DecimalArithmetic do
     D.div a, b
   end
   defp do_div(%Decimal{} = a, b) when is_number(b) do
-    D.div a, D.new(b)
+    D.div a, to_decimal(b)
   end
   defp do_div(a, %Decimal{} = b) when is_number(a) do
-    D.div D.new(a), b
+    D.div to_decimal(a), b
   end
   defp do_div(a, b) do
     Kernel./(a, b)
@@ -163,10 +163,10 @@ defmodule DecimalArithmetic do
     D.equal? a, b
   end
   defp do_equal(%Decimal{} = a, b) when is_number(b) do
-    D.equal? a, D.new(b)
+    D.equal? a, to_decimal(b)
   end
   defp do_equal(a, %Decimal{} = b) when is_number(a) do
-    D.equal? D.new(a), b
+    D.equal? to_decimal(a), b
   end
   defp do_equal(a, b) do
     Kernel.==(a, b)
@@ -203,13 +203,13 @@ defmodule DecimalArithmetic do
   end
 
   defp do_greater(%Decimal{} = a, %Decimal{} = b) do
-    Kernel.==(D.compare(a, b), D.new(1))
+    Kernel.==(D.compare(a, b), to_decimal(1))
   end
   defp do_greater(%Decimal{} = a, b) when is_number(b) do
-    Kernel.==(D.compare(a, D.new(b)), D.new(1))
+    Kernel.==(D.compare(a, to_decimal(b)), to_decimal(1))
   end
   defp do_greater(a, %Decimal{} = b) when is_number(a) do
-    Kernel.==(D.compare(D.new(a), b), D.new(1))
+    Kernel.==(D.compare(to_decimal(a), b), to_decimal(1))
   end
   defp do_greater(a, b) do
     Kernel.>(a, b)
@@ -248,13 +248,13 @@ defmodule DecimalArithmetic do
   end
 
   defp do_less(%Decimal{} = a, %Decimal{} = b) do
-    Kernel.==(D.compare(a, b), D.new(-1))
+    Kernel.==(D.compare(a, b), to_decimal(-1))
   end
   defp do_less(%Decimal{} = a, b) when is_number(b) do
-    Kernel.==(D.compare(a, D.new(b)), D.new(-1))
+    Kernel.==(D.compare(a, to_decimal(b)), to_decimal(-1))
   end
   defp do_less(a, %Decimal{} = b) when is_number(a) do
-    Kernel.==(D.compare(D.new(a), b), D.new(-1))
+    Kernel.==(D.compare(to_decimal(a), b), to_decimal(-1))
   end
   defp do_less(a, b) do
     Kernel.<(a, b)
@@ -289,5 +289,12 @@ defmodule DecimalArithmetic do
   """
   def sigil_m(string, []) do
     D.new(string)
+  end
+
+  def to_decimal(a) when is_integer(a) do
+    D.new(a)
+  end
+  def to_decimal(a) when is_float(a) do
+    D.from_float(a)
   end
 end
