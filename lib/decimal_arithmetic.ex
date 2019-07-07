@@ -291,10 +291,10 @@ defmodule DecimalArithmetic do
     D.new(string)
   end
 
-  def to_decimal(a) when is_integer(a) do
+  defp to_decimal(a) when is_integer(a) do
     D.new(a)
   end
-  def to_decimal(a) when is_float(a) do
+  defp to_decimal(a) when is_float(a) do
     D.from_float(a)
   end
 end
