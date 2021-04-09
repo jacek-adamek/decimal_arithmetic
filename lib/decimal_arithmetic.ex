@@ -24,14 +24,25 @@ defmodule DecimalArithmetic do
 
   alias Decimal, as: D
 
-  @type decimable :: number | Decimal.t
+  @type decimable :: number | Decimal.t()
 
   @doc false
   defmacro __using__(_opts) do
     quote do
-      import Kernel, except: [
-        +: 2, -: 2, *: 2, /: 2, ==: 2, !=: 2, <: 2, >: 2, <=: 2, >=: 2
-      ]
+      import Kernel,
+        except: [
+          +: 2,
+          -: 2,
+          *: 2,
+          /: 2,
+          ==: 2,
+          !=: 2,
+          <: 2,
+          >: 2,
+          <=: 2,
+          >=: 2
+        ]
+
       import unquote(__MODULE__)
     end
   end
@@ -45,24 +56,26 @@ defmodule DecimalArithmetic do
       iex> 1 + 3
       4
   """
-  @spec decimable + decimable :: Decimal.t
+  @spec decimable + decimable :: Decimal.t()
   def a + b do
     do_add(a, b)
   end
 
   defp do_add(%Decimal{} = a, %Decimal{} = b) do
-    D.add a, b
+    D.add(a, b)
   end
+
   defp do_add(%Decimal{} = a, b) when is_number(b) do
-    D.add a, to_decimal(b)
+    D.add(a, to_decimal(b))
   end
+
   defp do_add(a, %Decimal{} = b) when is_number(a) do
-    D.add to_decimal(a), b
+    D.add(to_decimal(a), b)
   end
+
   defp do_add(a, b) do
     Kernel.+(a, b)
   end
-
 
   @doc """
   Subtracts two decimables or delegates subtraction to Kernel module.
@@ -73,20 +86,23 @@ defmodule DecimalArithmetic do
       iex> 3.20 - 5.45
       -2.25
   """
-  @spec decimable - decimable :: Decimal.t
+  @spec decimable - decimable :: Decimal.t()
   def a - b do
     do_sub(a, b)
   end
 
   defp do_sub(%Decimal{} = a, %Decimal{} = b) do
-    D.sub a, b
+    D.sub(a, b)
   end
+
   defp do_sub(%Decimal{} = a, b) when is_number(b) do
-    D.sub a, to_decimal(b)
+    D.sub(a, to_decimal(b))
   end
+
   defp do_sub(a, %Decimal{} = b) when is_number(a) do
-    D.sub to_decimal(a), b
+    D.sub(to_decimal(a), b)
   end
+
   defp do_sub(a, b) do
     Kernel.-(a, b)
   end
@@ -98,20 +114,23 @@ defmodule DecimalArithmetic do
       iex> 7 * ~m(2.33)
       #Decimal<16.31>
   """
-  @spec decimable * decimable :: Decimal.t
+  @spec decimable * decimable :: Decimal.t()
   def a * b do
     do_mult(a, b)
   end
 
   defp do_mult(%Decimal{} = a, %Decimal{} = b) do
-    D.mult a, b
+    D.mult(a, b)
   end
+
   defp do_mult(%Decimal{} = a, b) when is_number(b) do
-    D.mult a, to_decimal(b)
+    D.mult(a, to_decimal(b))
   end
+
   defp do_mult(a, %Decimal{} = b) when is_number(a) do
-    D.mult to_decimal(a), b
+    D.mult(to_decimal(a), b)
   end
+
   defp do_mult(a, b) do
     Kernel.*(a, b)
   end
@@ -125,20 +144,23 @@ defmodule DecimalArithmetic do
       iex> 3 / 4
       0.75
   """
-  @spec decimable / decimable :: Decimal.t
+  @spec decimable / decimable :: Decimal.t()
   def a / b do
     do_div(a, b)
   end
 
   defp do_div(%Decimal{} = a, %Decimal{} = b) do
-    D.div a, b
+    D.div(a, b)
   end
+
   defp do_div(%Decimal{} = a, b) when is_number(b) do
-    D.div a, to_decimal(b)
+    D.div(a, to_decimal(b))
   end
+
   defp do_div(a, %Decimal{} = b) when is_number(a) do
-    D.div to_decimal(a), b
+    D.div(to_decimal(a), b)
   end
+
   defp do_div(a, b) do
     Kernel./(a, b)
   end
@@ -160,14 +182,17 @@ defmodule DecimalArithmetic do
   end
 
   defp do_equal(%Decimal{} = a, %Decimal{} = b) do
-    D.equal? a, b
+    D.equal?(a, b)
   end
+
   defp do_equal(%Decimal{} = a, b) when is_number(b) do
-    D.equal? a, to_decimal(b)
+    D.equal?(a, to_decimal(b))
   end
+
   defp do_equal(a, %Decimal{} = b) when is_number(a) do
-    D.equal? to_decimal(a), b
+    D.equal?(to_decimal(a), b)
   end
+
   defp do_equal(a, b) do
     Kernel.==(a, b)
   end
@@ -205,12 +230,15 @@ defmodule DecimalArithmetic do
   defp do_greater(%Decimal{} = a, %Decimal{} = b) do
     Kernel.==(D.compare(a, b), to_decimal(1))
   end
+
   defp do_greater(%Decimal{} = a, b) when is_number(b) do
     Kernel.==(D.compare(a, to_decimal(b)), to_decimal(1))
   end
+
   defp do_greater(a, %Decimal{} = b) when is_number(a) do
     Kernel.==(D.compare(to_decimal(a), b), to_decimal(1))
   end
+
   defp do_greater(a, b) do
     Kernel.>(a, b)
   end
@@ -250,12 +278,15 @@ defmodule DecimalArithmetic do
   defp do_less(%Decimal{} = a, %Decimal{} = b) do
     Kernel.==(D.compare(a, b), to_decimal(-1))
   end
+
   defp do_less(%Decimal{} = a, b) when is_number(b) do
     Kernel.==(D.compare(a, to_decimal(b)), to_decimal(-1))
   end
+
   defp do_less(a, %Decimal{} = b) when is_number(a) do
     Kernel.==(D.compare(to_decimal(a), b), to_decimal(-1))
   end
+
   defp do_less(a, b) do
     Kernel.<(a, b)
   end
@@ -294,6 +325,7 @@ defmodule DecimalArithmetic do
   defp to_decimal(a) when is_integer(a) do
     D.new(a)
   end
+
   defp to_decimal(a) when is_float(a) do
     D.from_float(a)
   end
