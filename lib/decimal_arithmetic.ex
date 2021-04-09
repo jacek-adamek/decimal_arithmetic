@@ -182,15 +182,15 @@ defmodule DecimalArithmetic do
   end
 
   defp do_equal(%Decimal{} = a, %Decimal{} = b) do
-    D.equal?(a, b)
+    Kernel.==(D.compare(a, b), :eq)
   end
 
   defp do_equal(%Decimal{} = a, b) when is_number(b) do
-    D.equal?(a, to_decimal(b))
+    Kernel.==(D.compare(a, to_decimal(b)), :eq)
   end
 
   defp do_equal(a, %Decimal{} = b) when is_number(a) do
-    D.equal?(to_decimal(a), b)
+    Kernel.==(D.compare(to_decimal(a), b), :eq)
   end
 
   defp do_equal(a, b) do
@@ -228,15 +228,15 @@ defmodule DecimalArithmetic do
   end
 
   defp do_greater(%Decimal{} = a, %Decimal{} = b) do
-    Kernel.==(D.compare(a, b), to_decimal(1))
+    Kernel.==(D.compare(a, b), :gt)
   end
 
   defp do_greater(%Decimal{} = a, b) when is_number(b) do
-    Kernel.==(D.compare(a, to_decimal(b)), to_decimal(1))
+    Kernel.==(D.compare(a, to_decimal(b)), :gt)
   end
 
   defp do_greater(a, %Decimal{} = b) when is_number(a) do
-    Kernel.==(D.compare(to_decimal(a), b), to_decimal(1))
+    Kernel.==(D.compare(to_decimal(a), b), :gt)
   end
 
   defp do_greater(a, b) do
@@ -276,15 +276,15 @@ defmodule DecimalArithmetic do
   end
 
   defp do_less(%Decimal{} = a, %Decimal{} = b) do
-    Kernel.==(D.compare(a, b), to_decimal(-1))
+    Kernel.==(D.compare(a, b), :lt)
   end
 
   defp do_less(%Decimal{} = a, b) when is_number(b) do
-    Kernel.==(D.compare(a, to_decimal(b)), to_decimal(-1))
+    Kernel.==(D.compare(a, to_decimal(b)), :lt)
   end
 
   defp do_less(a, %Decimal{} = b) when is_number(a) do
-    Kernel.==(D.compare(to_decimal(a), b), to_decimal(-1))
+    Kernel.==(D.compare(to_decimal(a), b), :lt)
   end
 
   defp do_less(a, b) do
