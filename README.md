@@ -23,9 +23,7 @@ Wouldn't be better (i.e. more readable) if you could write something like that:
         #Decimal<17.99>
         iex> vat_rate = ~m(23)
         #Decimal<23>
-        iex> gross_price =
-          net_price * (1 + vat_rate / 100)
-          |> Decimal.round(2)
+        iex> gross_price = net_price * (1 + vat_rate / 100) |> Decimal.round(2)
         #Decimal<22.13>
 ?
 
@@ -36,7 +34,7 @@ This library was created so that you could use [Decimal](https://github.com/eric
   Add decimal_arithmetic to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:decimal_arithmetic, "~> 0.1.2"}]
+          [{:decimal_arithmetic, "~> 2.0.0"}]
         en
 
 ## Usage
@@ -98,3 +96,7 @@ Besides basic arithmetic the library provides all typical comparison operators.
         true
 
 Promotion to [Decimal](https://github.com/ericmj/decimal) relates to comparison operators too.
+
+### Versioning
+
+Since version 2.0.0 the library version will follow the major version of [Decimal](https://github.com/ericmj/decimal) (which, by the way, means we skip version 1.0.0).
