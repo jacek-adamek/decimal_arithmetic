@@ -4,7 +4,7 @@ defmodule DecimalArithmetic.Mixfile do
   def project do
     [
       app: :decimal_arithmetic,
-      version: "2.0.0",
+      version: "2.0.1",
       elixir: "~> 1.2",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
