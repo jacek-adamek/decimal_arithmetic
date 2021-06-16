@@ -329,4 +329,25 @@ defmodule DecimalArithmetic do
   defp to_decimal(a) when is_float(a) do
     D.from_float(a)
   end
+
+  @doc false
+  def normalize(%Decimal{} = decimal) do
+    Decimal.normalize(decimal)
+  end
+
+  def normalize(map) when is_map(map) do
+    map |> Enum.map(&normalize/1) |> Map.new()
+  end
+
+  def normalize(list) when is_list(list) do
+    list |> Enum.map(&normalize/1)
+  end
+
+  def normalize(tuple) when is_tuple(tuple) do
+    tuple |> Tuple.to_list() |> Enum.map(&normalize/1) |> List.to_tuple()
+  end
+
+  def normalize(other) do
+    other
+  end
 end
