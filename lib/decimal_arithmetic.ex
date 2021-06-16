@@ -27,27 +27,62 @@ defmodule DecimalArithmetic do
   @type decimable :: number | Decimal.t()
 
   @doc false
-  defmacro __using__(_opts) do
-    quote do
-      import Kernel,
-        except: [
-          +: 2,
-          -: 2,
-          *: 2,
-          /: 2,
-          ==: 2,
-          !=: 2,
-          <: 2,
-          >: 2,
-          <=: 2,
-          >=: 2
-        ]
+  defmacro __using__(opts \\ []) do
+    support_nested_equality = Keyword.get(opts, :support_nested_equality, false)
 
-      import unquote(__MODULE__)
+    if support_nested_equality do
+      quote do
+        import Kernel,
+          except: [
+            +: 2,
+            -: 2,
+            *: 2,
+            /: 2,
+            ==: 2,
+            !=: 2,
+            <: 2,
+            >: 2,
+            <=: 2,
+            >=: 2
+          ]
+
+        import unquote(__MODULE__), except: [==: 2, !=: 2]
+
+        def a == b do
+          DecimalArithmetic.==(
+            DecimalArithmetic.normalize(a),
+            DecimalArithmetic.normalize(b)
+          )
+        end
+
+        def a != b do
+          !__MODULE__.==(a, b)
+        end
+      end
+    else
+      quote do
+        import Kernel,
+          except: [
+            +: 2,
+            -: 2,
+            *: 2,
+            /: 2,
+            ==: 2,
+            !=: 2,
+            <: 2,
+            >: 2,
+            <=: 2,
+            >=: 2
+          ]
+
+        import unquote(__MODULE__)
+      end
     end
   end
 
   @doc """
+  end
+
   Adds two decimables or delegate addition to Kernel module.
 
   ## Examples
